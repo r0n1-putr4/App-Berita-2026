@@ -11,7 +11,8 @@ import '../../models/model_article.dart';
 
 class ArticleEditPage extends StatefulWidget {
   final DataArticle _dataArticle;
-  const ArticleEditPage(this._dataArticle,{super.key});
+
+  const ArticleEditPage(this._dataArticle, {super.key});
 
   @override
   State<ArticleEditPage> createState() => _ArticleEditPageState();
@@ -134,7 +135,16 @@ class _ArticleEditPageState extends State<ArticleEditPage> {
                 SizedBox(height: 5),
                 _image != null
                     ? Center(child: Image.file(_image!, height: 200))
-                    : Center(child: Image(image: NetworkImage("${ApiService.base_url}/${widget._dataArticle.gambar}")),),
+                    : Center(
+                        child: Image(
+                          image: NetworkImage(
+                            "${ApiService.base_url}/${widget._dataArticle.gambar}",
+                          ),
+                          width: double.infinity,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                 SizedBox(height: 15),
                 Text(
                   "Isi Berita",
@@ -164,18 +174,10 @@ class _ArticleEditPageState extends State<ArticleEditPage> {
                       ? null
                       : () async {
                           if (_formKey.currentState!.validate()) {
-                            if (_image == null) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text("Pilih gambar terlebih dahulu"),
-                                ),
-                              );
-                              return;
-                            }
-
                             String pesan = await context
                                 .read<ProviderArticle>()
-                                .addArticle(
+                                .editArticle(
+                                  widget._dataArticle.id,
                                   1,
                                   judul.text,
                                   isiBerita.text,
@@ -187,7 +189,12 @@ class _ArticleEditPageState extends State<ArticleEditPage> {
                             ).showSnackBar(SnackBar(content: Text("$pesan")));
 
                             if (provider.status) {
-                              Navigator.push(context, MaterialPageRoute(builder: (_)=>ArticlePage()));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => ArticlePage(),
+                                ),
+                              );
                             }
                           }
                         },

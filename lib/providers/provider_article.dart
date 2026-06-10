@@ -79,4 +79,44 @@ class ProviderArticle extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<String> editArticle(int id,int user_id,String judul, String isi,  File? image,) async {
+    try {
+      _isLoading = true;
+      notifyListeners();
+
+      final url = Uri.parse("${ApiService.base_url}/articles/$id");
+
+      var request = http.MultipartRequest('POST', url);
+
+      request.fields['user_id'] = user_id.toString() ;
+      request.fields['judul'] = judul;
+
+      request.fields['isi'] = isi;
+
+      if (image != null) {
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'gambar',
+            image.path,
+          ),
+        );
+      }
+
+      http.StreamedResponse streamedResponse = await request.send();
+
+      http.Response response = await http.Response.fromStream(streamedResponse);
+
+      final hasil = modelResponseFromJson(response.body);
+
+      _status = hasil.status;
+
+      return hasil.message;
+    } catch (e) {
+      return _message = "Error : $e";
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
 }

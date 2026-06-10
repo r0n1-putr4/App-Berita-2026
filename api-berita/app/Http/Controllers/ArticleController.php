@@ -27,10 +27,12 @@ class ArticleController extends Controller
                     "updated_at" => \Carbon\Carbon::parse($article->updated_at)->locale('id')->translatedFormat('d F Y H:i'), // $article->updated_at
                 ];
             }
-            return response()->json(                [
+            return response()->json(
+                [
                     "message" => "Data artikel berhasil diambil",
                     "status" => true,
-                    "dataArticles" => $articlesResult                ]
+                    "dataArticles" => $articlesResult
+                ]
             );
         } catch (\Exception $e) {
             return response()->json(
@@ -119,21 +121,32 @@ class ArticleController extends Controller
                 "user_id" => "required|integer|exists:users,id",
                 "judul" => "required|string",
                 "isi" => "required|string",
-                'gambar' => 'required|image|file|max:5120'
+                "gambar"  => "nullable|image|file|max:5120"
             ]);
 
-            $file = $request->file('gambar');
+            
 
-            $namaFile = time() . '_' . $file->getClientOriginalName();
-
-            $destinationPath = app()->basePath('public/images');
-
-            $file->move($destinationPath, $namaFile);
-
-            $validate['gambar'] = 'images/' . $namaFile;
+            
 
             $update = Article::find($id);
-            if ($update->update($validate)) {
+            $update->user_id = $request->user_id;
+            $update->judul   = $request->judul;
+            $update->isi     = $request->isi;
+
+            if ($request->hasFile('gambar')) {
+
+                $file = $request->file('gambar');
+
+                $namaFile = time() . '_' . $file->getClientOriginalName();
+
+                $destinationPath = app()->basePath('public/images');
+
+                $file->move($destinationPath, $namaFile);
+
+                $update->gambar = 'images/' . $namaFile;
+            }
+            
+            if ($update->save()) {
                 return response()->json(
                     [
                         "message" => "Artikel berhasil diupdate",
