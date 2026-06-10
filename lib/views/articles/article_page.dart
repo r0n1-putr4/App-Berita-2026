@@ -1,6 +1,7 @@
 import 'package:app_berita_roni/config/api_service.dart';
 import 'package:app_berita_roni/models/model_article.dart';
 import 'package:app_berita_roni/providers/provider_article.dart';
+import 'package:app_berita_roni/views/articles/article_add_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,7 +24,6 @@ class _ArticlePageState extends State<ArticlePage> {
   Widget build(BuildContext context) {
     final provider = Provider.of<ProviderArticle>(context);
     return Scaffold(
-      // appBar: AppBar(title: Text("List Article")),
       body: provider.isLoading
           ? Center(child: CircularProgressIndicator())
           : provider.statusCode != 200
@@ -109,6 +109,15 @@ class _ArticlePageState extends State<ArticlePage> {
                 },
               ),
             ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => ArticleAddPage()),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
