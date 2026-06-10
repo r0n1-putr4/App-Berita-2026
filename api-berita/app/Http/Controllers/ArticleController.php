@@ -27,12 +27,10 @@ class ArticleController extends Controller
                     "updated_at" => \Carbon\Carbon::parse($article->updated_at)->locale('id')->translatedFormat('d F Y H:i'), // $article->updated_at
                 ];
             }
-            return response()->json(
-                [
+            return response()->json(                [
                     "message" => "Data artikel berhasil diambil",
                     "status" => true,
-                    "dataArticles" => $articlesResult
-                ]
+                    "dataArticles" => $articlesResult                ]
             );
         } catch (\Exception $e) {
             return response()->json(

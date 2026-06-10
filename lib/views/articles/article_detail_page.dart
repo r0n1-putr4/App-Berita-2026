@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:app_berita_roni/config/api_service.dart';
 import 'package:app_berita_roni/models/model_article.dart';
+import 'package:app_berita_roni/views/articles/article_edit_page.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ArticleDetailPage extends StatefulWidget {
   final DataArticle _dataArticle;
@@ -23,7 +21,14 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
         backgroundColor: Colors.blue,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ArticleEditPage(widget._dataArticle),
+                ),
+              );
+            },
             icon: Icon(Icons.edit, color: Colors.white),
           ),
         ],
