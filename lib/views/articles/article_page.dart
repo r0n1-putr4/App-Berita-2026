@@ -2,6 +2,7 @@ import 'package:app_berita_roni/config/api_service.dart';
 import 'package:app_berita_roni/models/model_article.dart';
 import 'package:app_berita_roni/providers/provider_article.dart';
 import 'package:app_berita_roni/views/articles/article_add_page.dart';
+import 'package:app_berita_roni/views/articles/article_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -39,12 +40,12 @@ class _ArticlePageState extends State<ArticlePage> {
 
                   return GestureDetector(
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (_) => DetailListPage(itemBerita),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ArticleDetailPage(dataArticle),
+                        ),
+                      );
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(
@@ -75,14 +76,15 @@ class _ArticlePageState extends State<ArticlePage> {
                                 Text(
                                   dataArticle.judul,
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 10,
                                     fontWeight: FontWeight.bold,
                                   ),
+                                  maxLines: 2,
                                 ),
                                 SizedBox(height: 5),
                                 Text(
                                   dataArticle.createdAt,
-                                  style: TextStyle(fontSize: 12),
+                                  style: TextStyle(fontSize: 9),
                                 ),
                                 SizedBox(height: 15),
                                 Row(
@@ -91,11 +93,11 @@ class _ArticlePageState extends State<ArticlePage> {
                                     Icon(
                                       Icons.draw,
                                       color: Colors.blue,
-                                      size: 20,
+                                      size: 9,
                                     ),
                                     Text(
                                       dataArticle.user,
-                                      style: TextStyle(fontSize: 15),
+                                      style: TextStyle(fontSize: 9),
                                     ),
                                   ],
                                 ),
