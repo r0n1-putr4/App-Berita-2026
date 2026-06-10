@@ -18,18 +18,24 @@ class ProviderArticle extends ChangeNotifier {
   bool _status = false;
   bool get status => _status;
 
-  Future<void> getIndex() async{
-    try{
+  int? _statusCode;
+  int? get statusCode => _statusCode;
 
+  Future<void> getIndex() async {
+    try {
       _isLoading = true;
       notifyListeners();
-      http.Response _response = await http.get(Uri.parse("${ApiService.base_url}/articles"));
-      final _modelArticle = modelArticleFromJson(_response.body);
-      _dataArticle = _modelArticle.dataArticles ?? [];
-      _message = _modelArticle.message;
-    }catch(e){
+      http.Response response = await http
+          .get(Uri.parse("${ApiService.base_url}/articles"))
+          .timeout(const Duration(seconds: 10));
+
+      _statusCode = response.statusCode;
+      final modelArticle = modelArticleFromJson(response.body);
+      _dataArticle = modelArticle.dataArticles ?? [];
+      _message = modelArticle.message;
+    } catch (e) {
       _message = "Error : $e";
-    }finally{
+    } finally {
       _isLoading = false;
       _status = false;
       notifyListeners();

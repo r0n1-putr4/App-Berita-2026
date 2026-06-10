@@ -38,8 +38,8 @@ class DataArticle {
   String isi;
   String gambar;
   String user;
-  DateTime createdAt;
-  DateTime updatedAt;
+  String createdAt;
+  String updatedAt;
 
   DataArticle({
     required this.id,
@@ -57,8 +57,8 @@ class DataArticle {
     isi: json["isi"],
     gambar: json["gambar"],
     user: json["user"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"],
+    updatedAt: json["updated_at"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -67,7 +67,7 @@ class DataArticle {
     "isi": isi,
     "gambar": gambar,
     "user": user,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
+    "created_at": createdAt,
+    "updated_at": updatedAt,
   };
 }

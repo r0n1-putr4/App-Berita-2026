@@ -8,20 +8,23 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     //
-    public function index(){
-        try{
-            $articles =Article::all();
+    public function index()
+    {
+        try {
+            $articles = Article::all();
             $articlesResult = [];
-            foreach($articles as $article){
-        
+            foreach ($articles as $article) {
+
                 $articlesResult[] = [
                     "id" => $article->id,
                     "judul" => $article->judul,
                     "isi" => $article->isi,
                     "gambar" => $article->gambar,
                     "user" => $article->user->full_name,
-                    "created_at" => $article->created_at,
-                    "updated_at" => $article->updated_at
+                    "created_at" => \Carbon\Carbon::parse($article->created_at)
+                        ->locale('id')
+                        ->translatedFormat('d F Y H:i'),
+                    "updated_at" => \Carbon\Carbon::parse($article->updated_at)->locale('id')->translatedFormat('d F Y H:i'), // $article->updated_at
                 ];
             }
             return response()->json(
@@ -31,20 +34,20 @@ class ArticleController extends Controller
                     "dataArticles" => $articlesResult
                 ]
             );
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json(
                 [
-                    "message" => "Error:".$e->getMessage(),
+                    "message" => "Error:" . $e->getMessage(),
                     "status" => false
                 ]
             );
         }
     }
 
-    public function store(Request $request){
-        try{
-            $validate = $this->validate($request,[
+    public function store(Request $request)
+    {
+        try {
+            $validate = $this->validate($request, [
                 "user_id" => "required|integer|exists:users,id",
                 "judul" => "required|string",
                 "isi" => "required|string",
@@ -61,12 +64,12 @@ class ArticleController extends Controller
             $file->move($destinationPath, $namaFile);
 
             $validate['gambar'] = 'images/' . $namaFile;
-            
+
             $simpan = Article::create($validate);
             return response()->json(
                 [
                     "status" => true,
-                    "message" => "Artikel berhasil ditambahkan",                    
+                    "message" => "Artikel berhasil ditambahkan",
                     "data" => $simpan
                 ]
             );
@@ -80,10 +83,11 @@ class ArticleController extends Controller
         }
     }
 
-    public function destroy($id){
-        try{
+    public function destroy($id)
+    {
+        try {
             $cek = Article::find($id);
-            if(!$cek){
+            if (!$cek) {
                 return response()->json(
                     [
                         "message" => "Artikel tidak ditemukan",
@@ -91,7 +95,7 @@ class ArticleController extends Controller
                     ]
                 );
             }
-            if($cek->delete()){
+            if ($cek->delete()) {
                 return response()->json(
                     [
                         "message" => "Artikel berhasil dihapus",
@@ -99,19 +103,20 @@ class ArticleController extends Controller
                     ]
                 );
             }
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json(
                 [
-                    "message" => "Error:".$e->getMessage(),
+                    "message" => "Error:" . $e->getMessage(),
                     "status" => false
                 ]
             );
         }
     }
 
-    public function update(Request $request, $id){
-        
-        try{
+    public function update(Request $request, $id)
+    {
+
+        try {
             $validate = $this->validate($request, [
                 "user_id" => "required|integer|exists:users,id",
                 "judul" => "required|string",
@@ -130,7 +135,7 @@ class ArticleController extends Controller
             $validate['gambar'] = 'images/' . $namaFile;
 
             $update = Article::find($id);
-            if($update->update($validate)){
+            if ($update->update($validate)) {
                 return response()->json(
                     [
                         "message" => "Artikel berhasil diupdate",
@@ -139,15 +144,13 @@ class ArticleController extends Controller
                     ]
                 );
             }
-
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             return response()->json(
                 [
-                    "message" => "Error:".$e->getMessage(),
+                    "message" => "Error:" . $e->getMessage(),
                     "status" => false
                 ]
             );
         }
-
     }
 }

@@ -1,3 +1,5 @@
+import 'package:app_berita_roni/config/api_service.dart';
+import 'package:app_berita_roni/models/model_article.dart';
 import 'package:app_berita_roni/providers/provider_article.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,16 +21,94 @@ class _ArticlePageState extends State<ArticlePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _provider = Provider.of<ProviderArticle>(context);
+    final provider = Provider.of<ProviderArticle>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text("List Article"),
-      ),
-      body: _provider.isLoading
+      // appBar: AppBar(title: Text("List Article")),
+      body: provider.isLoading
           ? Center(child: CircularProgressIndicator())
-          : _provider.article.isEmpty
+          : provider.statusCode != 200
+          ? Center(child: Text("Tidak terhubung ke API"))
+          : provider.article.isEmpty
           ? Center(child: Text("Data Article Kosong"))
-          : Center(child: Text(_provider.message)),
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView.builder(
+                itemCount: provider.article.length,
+                itemBuilder: (context, index) {
+                  DataArticle dataArticle = provider.article[index];
+
+                  return GestureDetector(
+                    onTap: () {
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (_) => DetailListPage(itemBerita),
+                      //   ),
+                      // );
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      elevation: 3,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image(
+                                image: NetworkImage(
+                                  "${ApiService.base_url}/${dataArticle.gambar}",
+                                ),
+                                width: double.infinity,
+                                height: 120,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  dataArticle.judul,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                Text(
+                                  dataArticle.createdAt,
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                                SizedBox(height: 15),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Icon(
+                                      Icons.draw,
+                                      color: Colors.blue,
+                                      size: 20,
+                                    ),
+                                    Text(
+                                      dataArticle.user,
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
     );
   }
 }
