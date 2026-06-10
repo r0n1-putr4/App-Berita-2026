@@ -181,7 +181,7 @@ class _ArticleEditPageState extends State<ArticleEditPage> {
                                   1,
                                   judul.text,
                                   isiBerita.text,
-                                  _image!,
+                                  _image,
                                 );
 
                             ScaffoldMessenger.of(

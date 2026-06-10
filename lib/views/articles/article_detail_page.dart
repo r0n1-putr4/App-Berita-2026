@@ -20,17 +20,20 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
         title: Text("Detail Berita", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue,
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => ArticleEditPage(widget._dataArticle),
-                ),
-              );
-            },
-            icon: Icon(Icons.edit, color: Colors.white),
-          ),
+          if (widget._dataArticle.id == 2)
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ArticleEditPage(widget._dataArticle),
+                  ),
+                );
+              },
+              icon: Icon(Icons.edit, color: Colors.white),
+            ),
+          if (widget._dataArticle.id == 3)
+            Text("Tes")
         ],
       ),
       body: SingleChildScrollView(
