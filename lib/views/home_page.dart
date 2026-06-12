@@ -65,9 +65,9 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: _klikBottomNav,
         currentIndex: _pilBottomNav,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey.shade500,
-        backgroundColor: Colors.black,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.black38,
+        backgroundColor: Colors.blue,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.article), label: "Article"),
           BottomNavigationBarItem(icon: Icon(Icons.draw), label: "My Article"),

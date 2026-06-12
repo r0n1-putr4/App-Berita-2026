@@ -4,6 +4,7 @@ import 'package:app_berita_roni/config/api_service.dart';
 import 'package:app_berita_roni/providers/article_provider.dart';
 import 'package:app_berita_roni/views/articles/article_page.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -189,12 +190,7 @@ class _ArticleEditPageState extends State<ArticleEditPage> {
                             ).showSnackBar(SnackBar(content: Text("$pesan")));
 
                             if (provider.status) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => ArticlePage(),
-                                ),
-                              );
+                              context.push('/');
                             }
                           }
                         },

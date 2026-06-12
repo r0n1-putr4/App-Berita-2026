@@ -109,7 +109,8 @@ class _ArticlePageState extends State<ArticlePage> {
         onPressed: () {
           context.push("/article-add");
         },
-        child: Icon(Icons.add),
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.add,color: Colors.white,),
       ),
     );
   }
