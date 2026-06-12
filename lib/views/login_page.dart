@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import '../config/session.dart';
+import '../providers/user_provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,6 +19,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<UserProvider>();
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -86,7 +92,30 @@ class _LoginPageState extends State<LoginPage> {
                         // Change button color
                         foregroundColor: Colors.white, // Change text color
                       ),
-                      onPressed: () =>{},
+                      onPressed: provider.isLoading
+                          ? null
+                          : () async {
+                        if (_formKey.currentState!.validate()) {
+                          String pesan = await context
+                              .read<UserProvider>()
+                              .login(username.text, password.text);
+
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(content: Text("$pesan")));
+
+                          if (provider.status) {
+                            await SessionManager.saveSession(
+                              provider.user!.id,
+                              provider.user!.username,
+                              provider.user!.fullName,
+                              provider.user!.email,
+                              provider.user!.gambar,
+                            );
+                            context.go('/');
+                          }
+                        }
+                      },
                       child: Text("Login"),
                     ),
                     TextButton(

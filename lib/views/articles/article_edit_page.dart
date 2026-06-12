@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:app_berita_roni/config/api_service.dart';
-import 'package:app_berita_roni/providers/provider_article.dart';
+import 'package:app_berita_roni/providers/article_provider.dart';
 import 'package:app_berita_roni/views/articles/article_page.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -78,7 +78,7 @@ class _ArticleEditPageState extends State<ArticleEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<ProviderArticle>();
+    final provider = context.watch<ArticleProvider>();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -175,7 +175,7 @@ class _ArticleEditPageState extends State<ArticleEditPage> {
                       : () async {
                           if (_formKey.currentState!.validate()) {
                             String pesan = await context
-                                .read<ProviderArticle>()
+                                .read<ArticleProvider>()
                                 .editArticle(
                                   widget._dataArticleEdit.id,
                                   1,

@@ -43,7 +43,7 @@ class UserController extends Controller
                         'id' => $user->id,
                         'username' => $user->username,
                         'email' => $user->email,
-                        'fullname' => $user->fullname,
+                        'full_name' => $user->full_name,
                         'gambar' => $user->gambar,
                     ]
                 ]);

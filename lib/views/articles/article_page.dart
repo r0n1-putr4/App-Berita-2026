@@ -1,6 +1,6 @@
 import 'package:app_berita_roni/config/api_service.dart';
 import 'package:app_berita_roni/models/model_article.dart';
-import 'package:app_berita_roni/providers/provider_article.dart';
+import 'package:app_berita_roni/providers/article_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -17,12 +17,12 @@ class _ArticlePageState extends State<ArticlePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.microtask(() => context.read<ProviderArticle>().getIndex());
+    Future.microtask(() => context.read<ArticleProvider>().getIndex());
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ProviderArticle>(context);
+    final provider = Provider.of<ArticleProvider>(context);
     return Scaffold(
       body: provider.isLoading
           ? Center(child: CircularProgressIndicator())

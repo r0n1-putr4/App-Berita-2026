@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:app_berita_roni/providers/provider_article.dart';
+import 'package:app_berita_roni/providers/article_provider.dart';
 import 'package:app_berita_roni/views/articles/article_page.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -65,7 +65,7 @@ class _ArticleAddPageState extends State<ArticleAddPage> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<ProviderArticle>();
+    final provider = context.watch<ArticleProvider>();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -162,7 +162,7 @@ class _ArticleAddPageState extends State<ArticleAddPage> {
                             }
 
                             String pesan = await context
-                                .read<ProviderArticle>()
+                                .read<ArticleProvider>()
                                 .addArticle(
                                   1,
                                   judul.text,

@@ -21,3 +21,7 @@ $router->get("/articles", "ArticleController@index");
 $router->post("/articles", "ArticleController@store");
 $router->delete("/articles/{id}", "ArticleController@destroy");
 $router->post("/articles/{id}", "ArticleController@update");
+
+$router->get("/users", "UserController@index");
+$router->post("/users/login", "UserController@login");
+$router->post("/users/register", "UserController@store");

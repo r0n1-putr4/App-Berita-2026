@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 
 import '../models/model_response.dart';
 
-class ProviderArticle extends ChangeNotifier {
+class ArticleProvider extends ChangeNotifier {
   List<DataArticle> _dataArticle = [];
   List<DataArticle> get article => _dataArticle;
 

@@ -1,4 +1,5 @@
-import 'package:app_berita_roni/providers/provider_article.dart';
+import 'package:app_berita_roni/providers/article_provider.dart';
+import 'package:app_berita_roni/providers/user_provider.dart';
 import 'package:app_berita_roni/routers/app_route.dart';
 import 'package:app_berita_roni/views/articles/article_page.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,10 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => ProviderArticle())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => ArticleProvider()),
+        ChangeNotifierProvider(create: (_)=>UserProvider())
+      ],
       child: MyApp(),
     ),
 
