@@ -10,9 +10,9 @@ import 'package:provider/provider.dart';
 import '../../models/model_article.dart';
 
 class ArticleEditPage extends StatefulWidget {
-  final DataArticle _dataArticle;
+  final DataArticle _dataArticleEdit;
 
-  const ArticleEditPage(this._dataArticle, {super.key});
+  const ArticleEditPage(this._dataArticleEdit, {super.key});
 
   @override
   State<ArticleEditPage> createState() => _ArticleEditPageState();
@@ -72,8 +72,8 @@ class _ArticleEditPageState extends State<ArticleEditPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    judul.text = widget._dataArticle.judul;
-    isiBerita.text = widget._dataArticle.isi;
+    judul.text = widget._dataArticleEdit.judul;
+    isiBerita.text = widget._dataArticleEdit.isi;
   }
 
   @override
@@ -138,7 +138,7 @@ class _ArticleEditPageState extends State<ArticleEditPage> {
                     : Center(
                         child: Image(
                           image: NetworkImage(
-                            "${ApiService.base_url}/${widget._dataArticle.gambar}",
+                            "${ApiService.base_url}/${widget._dataArticleEdit.gambar}",
                           ),
                           width: double.infinity,
                           height: 200,
@@ -177,7 +177,7 @@ class _ArticleEditPageState extends State<ArticleEditPage> {
                             String pesan = await context
                                 .read<ProviderArticle>()
                                 .editArticle(
-                                  widget._dataArticle.id,
+                                  widget._dataArticleEdit.id,
                                   1,
                                   judul.text,
                                   isiBerita.text,

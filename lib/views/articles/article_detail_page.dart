@@ -2,6 +2,8 @@ import 'package:app_berita_roni/config/api_service.dart';
 import 'package:app_berita_roni/models/model_article.dart';
 import 'package:app_berita_roni/views/articles/article_edit_page.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
 
 class ArticleDetailPage extends StatefulWidget {
   final DataArticle _dataArticle;
@@ -23,23 +25,13 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
           if (widget._dataArticle.id == 2) ...[
             IconButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ArticleEditPage(widget._dataArticle),
-                  ),
-                );
+                context.push('/article-edit',extra: widget._dataArticle);
               },
               icon: Icon(Icons.edit, color: Colors.white),
             ),
             IconButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ArticleEditPage(widget._dataArticle),
-                  ),
-                );
+
               },
               icon: Icon(Icons.delete, color: Colors.red),
             ),
