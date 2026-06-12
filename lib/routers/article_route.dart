@@ -3,7 +3,6 @@ import 'package:app_berita_roni/views/articles/article_add_page.dart';
 import 'package:app_berita_roni/views/articles/article_detail_page.dart';
 import 'package:app_berita_roni/views/articles/article_edit_page.dart';
 import 'package:app_berita_roni/views/articles/article_page.dart';
-import 'package:app_berita_roni/views/home_view.dart';
 import 'package:go_router/go_router.dart';
 
 class ArticleRoute {
