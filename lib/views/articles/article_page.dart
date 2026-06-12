@@ -1,9 +1,11 @@
 import 'package:app_berita_roni/config/api_service.dart';
 import 'package:app_berita_roni/models/model_article.dart';
 import 'package:app_berita_roni/providers/provider_article.dart';
+import 'package:app_berita_roni/routers/app_route.dart';
 import 'package:app_berita_roni/views/articles/article_add_page.dart';
 import 'package:app_berita_roni/views/articles/article_detail_page.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class ArticlePage extends StatefulWidget {
@@ -40,11 +42,9 @@ class _ArticlePageState extends State<ArticlePage> {
 
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => ArticleDetailPage(dataArticle),
-                        ),
+                      context.push(
+                        '/article-edit',
+                        extra: dataArticle,
                       );
                     },
                     child: Card(

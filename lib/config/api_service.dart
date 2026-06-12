@@ -1,5 +1,5 @@
 class ApiService {
 
-  static const base_url = "http://192.168.254.100:8081";
+  static const base_url = "http://10.84.141.108:8081";
 
 }

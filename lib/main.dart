@@ -1,4 +1,5 @@
 import 'package:app_berita_roni/providers/provider_article.dart';
+import 'package:app_berita_roni/routers/app_route.dart';
 import 'package:app_berita_roni/views/articles/article_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,13 +20,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Portal Berita',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const ArticlePage(),
+      routerConfig: appRouter,
     );
   }
 }
