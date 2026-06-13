@@ -1,4 +1,4 @@
-import 'package:app_berita_roni/models/model_article.dart';
+import 'package:app_berita_roni/models/article_model.dart';
 import 'package:app_berita_roni/views/articles/article_add_page.dart';
 import 'package:app_berita_roni/views/articles/article_detail_page.dart';
 import 'package:app_berita_roni/views/articles/article_edit_page.dart';

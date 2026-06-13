@@ -1,5 +1,5 @@
 import 'package:app_berita_roni/config/api_service.dart';
-import 'package:app_berita_roni/models/model_article.dart';
+import 'package:app_berita_roni/models/article_model.dart';
 import 'package:app_berita_roni/providers/article_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

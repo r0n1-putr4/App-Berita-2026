@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:app_berita_roni/config/api_service.dart';
-import 'package:app_berita_roni/models/model_article.dart';
+import 'package:app_berita_roni/models/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,9 +33,9 @@ class ArticleProvider extends ChangeNotifier {
           .timeout(const Duration(seconds: 10));
 
       _statusCode = response.statusCode;
-      final modelArticle = modelArticleFromJson(response.body);
-      _dataArticle = modelArticle.dataArticles ?? [];
-      _message = modelArticle.message;
+      final articleModel = articleModelFromJson(response.body);
+      _dataArticle = articleModel.dataArticles ?? [];
+      _message = articleModel.message;
     } catch (e) {
       _message = "Error : $e";
     } finally {
@@ -60,7 +60,7 @@ class ArticleProvider extends ChangeNotifier {
       request.fields['isi'] = isi;
 
       request.files.add(
-        await http.MultipartFile.fromPath('gambar', image.path),
+        await http.MultipartFile.fromPath('gambar_berita', image.path),
       );
 
       http.StreamedResponse streamedResponse = await request.send();

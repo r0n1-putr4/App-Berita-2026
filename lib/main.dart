@@ -1,4 +1,5 @@
 import 'package:app_berita_roni/providers/article_provider.dart';
+import 'package:app_berita_roni/providers/session_provider.dart';
 import 'package:app_berita_roni/providers/user_provider.dart';
 import 'package:app_berita_roni/routers/app_route.dart';
 import 'package:app_berita_roni/views/articles/article_page.dart';
@@ -10,7 +11,8 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ArticleProvider()),
-        ChangeNotifierProvider(create: (_)=>UserProvider())
+        ChangeNotifierProvider(create: (_)=>UserProvider()),
+        ChangeNotifierProvider(create: (_)=>SessionProvider()),
       ],
       child: MyApp(),
     ),

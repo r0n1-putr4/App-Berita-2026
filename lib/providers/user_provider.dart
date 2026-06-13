@@ -1,4 +1,5 @@
 import 'package:app_berita_roni/config/api_service.dart';
+import 'package:app_berita_roni/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -6,20 +7,19 @@ import '../models/login_model.dart';
 
 class UserProvider extends ChangeNotifier {
   bool _isLoading = false;
-
   bool get isLoading => _isLoading;
 
   String _message = "";
-
   String get message => _message;
 
   bool _status = false;
-
   bool get status => _status;
 
-  Data? _user;
+  DataLogin? _user;
+  DataLogin? get user => _user;
 
-  Data? get user => _user;
+  List<DataUser> _dataUser = [];
+  List<DataUser> get dataUser => _dataUser;
 
   Future<String> login(String username, String password) async {
     try {
@@ -34,15 +34,30 @@ class UserProvider extends ChangeNotifier {
       _status = loginModel.status;
       _message = loginModel.message;
 
-      if (loginModel.data != null) {
-        _user = loginModel.data;
-      }
+      _user = loginModel.dataLogin;
 
       return _message;
     } catch (e) {
       _message = "Error : $e";
       return _message;
     } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> getDataUser() async{
+    try{
+      _isLoading = true;
+      notifyListeners();
+
+      http.Response response = await http.get(Uri.parse("${ApiService.base_url}/users"));
+      final userModel = userModelFromJson(response.body);
+      _dataUser = userModel.dataUsers ?? [];
+
+    }catch(e){
+      _message = "Error : $e";
+    }finally{
       _isLoading = false;
       notifyListeners();
     }

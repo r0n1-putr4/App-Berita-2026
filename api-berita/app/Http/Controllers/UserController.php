@@ -12,10 +12,22 @@ class UserController extends Controller
         try {
 
             $users = User::all();
+            $usersResult = [];
+            foreach ($users as $user) {
+                $usersResult[] = [
+                    'id' => $user->id,
+                    'username' => $user->username,
+                    'email' => $user->email,
+                    'full_name' => $user->full_name,
+                    'gambar' => $user->gambar,
+                    'created_at' => \Carbon\Carbon::parse($user->created_at)->locale('id')->translatedFormat('d F Y H:i'),
+                    'updated_at' => \Carbon\Carbon::parse($user->updated_at)->locale('id')->translatedFormat('d F Y H:i'),
+                ];
+            }
             return response()->json([
                 'status' => true,
                 'message' => "Data User",
-                'data' => $users
+                'dataUsers' => $usersResult
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -39,7 +51,7 @@ class UserController extends Controller
                 return response()->json([
                     'status' => true,
                     'message' => 'Login Berhasil',
-                    'data' => [
+                    'dataLogin' => [
                         'id' => $user->id,
                         'username' => $user->username,
                         'email' => $user->email,
@@ -61,6 +73,7 @@ class UserController extends Controller
         }
     }
 
+
     public function store(Request $request)
     {
 
@@ -70,8 +83,22 @@ class UserController extends Controller
                 'username' => 'required|unique:users',
                 'email' => 'required|email|unique:users',
                 'password' => 'required',
-                'fullname' => 'required',
+                'full_name' => 'required',
+                "gambar"  => "nullable|image|file|max:5120"
             ]);
+
+            if ($request->hasFile('gambar')) {
+
+                $file = $request->file('gambar');
+
+                $namaFile = time() . '_' . $file->getClientOriginalName();
+
+                $destinationPath = app()->basePath('public/images');
+
+                $file->move($destinationPath, $namaFile);
+
+                $validate['gambar'] = 'images/' . $namaFile;
+            }
 
             $validate['password'] = md5($request->password);
 
@@ -98,9 +125,18 @@ class UserController extends Controller
                 'email' => 'required|email|unique:users',
                 'password' => 'required',
                 'fullname' => 'required',
+                "gambar"  => "nullable|image|file|max:5120"
             ]);
 
             $validate['password'] = md5($request->password);
+
+            if ($request->hasFile('gambar')) {
+                $file = $request->file('gambar');
+                $namaFile = time() . '_' . $file->getClientOriginalName();
+                $destinationPath = app()->basePath('public/images');
+                $file->move($destinationPath, $namaFile);
+                $validate['gambar'] = 'images/' . $namaFile;
+            }
 
             $update = User::where('id', $id)->update($validate);
 

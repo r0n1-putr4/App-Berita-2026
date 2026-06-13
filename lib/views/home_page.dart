@@ -4,8 +4,10 @@ import 'package:app_berita_roni/views/users/user_page.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../config/session.dart';
+import '../providers/session_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,12 +35,15 @@ class _HomePageState extends State<HomePage> {
     await SessionManager.clearSession();
     context.push('/login');
   }
+
+  late final session = context.watch<SessionProvider>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text("Portal Berita",style: TextStyle(color: Colors.white),),
+        title: Text(session.full_name, style: TextStyle(color: Colors.white)),
         actions: [
           IconButton(
             icon: Icon(Icons.logout, color: Colors.white),

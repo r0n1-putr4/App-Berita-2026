@@ -124,10 +124,6 @@ class ArticleController extends Controller
                 "gambar"  => "nullable|image|file|max:5120"
             ]);
 
-            
-
-            
-
             $update = Article::find($id);
             $update->user_id = $request->user_id;
             $update->judul   = $request->judul;
@@ -145,7 +141,7 @@ class ArticleController extends Controller
 
                 $update->gambar = 'images/' . $namaFile;
             }
-            
+
             if ($update->save()) {
                 return response()->json(
                     [

@@ -11,47 +11,47 @@ String loginModelToJson(LoginModel data) => json.encode(data.toJson());
 class LoginModel {
   bool status;
   String message;
-  Data? data;
+  DataLogin? dataLogin;
 
   LoginModel({
     required this.status,
     required this.message,
-    this.data,
+    this.dataLogin,
   });
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
     status: json["status"],
     message: json["message"],
-    data: json["data"] != null ? Data.fromJson(json["data"]) : null,
+    dataLogin: json["dataLogin"] != null ? DataLogin.fromJson(json["dataLogin"]) : null,
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    if(data != null)  "data" : data!.toJson(),
+    if(dataLogin != null)  "dataLogin" : dataLogin!.toJson(),
   };
 }
 
-class Data {
+class DataLogin {
   int id;
   String username;
   String email;
-  String fullName;
+  String full_name;
   String gambar;
 
-  Data({
+  DataLogin({
     required this.id,
     required this.username,
     required this.email,
-    required this.fullName,
+    required this.full_name,
     required this.gambar,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory DataLogin.fromJson(Map<String, dynamic> json) => DataLogin(
     id: json["id"],
     username: json["username"],
     email: json["email"],
-    fullName: json["full_name"],
+    full_name: json["full_name"],
     gambar: json["gambar"],
   );
 
@@ -59,7 +59,7 @@ class Data {
     "id": id,
     "username": username,
     "email": email,
-    "full_name": fullName,
+    "full_name": full_name,
     "gambar": gambar,
   };
 }

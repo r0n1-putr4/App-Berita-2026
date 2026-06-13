@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('full_name');
-            $table->string('gambar')->default('no-image.jpg');
+            $table->string('gambar')->default('images/no-image.jpg');
             $table->timestamps();
         });
     }

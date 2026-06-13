@@ -2,12 +2,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionManager {
   static Future<void> saveSession(int id, String username,
-      String fullname, String email, String gambar) async {
+      String full_name, String email, String gambar) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('is_login', true);
     await prefs.setInt('id', id); // Simpan sebagai Integer
     await prefs.setString('username', username);
-    await prefs.setString('fullname', fullname);
+    await prefs.setString('full_name', full_name);
     await prefs.setString('email', email);
     await prefs.setString('gambar', gambar);
   }
@@ -18,7 +18,7 @@ class SessionManager {
     return {
       'id': prefs.getInt('id'), // Baca langsung sebagai Integer
       'username': prefs.getString('username'),
-      'fullname': prefs.getString('fullname'),
+      'full_name': prefs.getString('full_name'),
       'email': prefs.getString('email'),
       'gambar': prefs.getString('gambar'),
     };

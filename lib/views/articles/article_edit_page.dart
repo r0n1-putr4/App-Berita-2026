@@ -8,7 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/model_article.dart';
+import '../../models/article_model.dart';
 
 class ArticleEditPage extends StatefulWidget {
   final DataArticle _dataArticleEdit;
