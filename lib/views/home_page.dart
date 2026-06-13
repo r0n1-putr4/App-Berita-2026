@@ -63,9 +63,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-
         title: Text(full_name, style: TextStyle(color: Colors.white)),
         actions: [
+          IconButton(
+            icon: Icon(Icons.person, color: Colors.white),
+            onPressed: () {},
+          ),
           IconButton(
             icon: Icon(Icons.logout, color: Colors.white),
             onPressed: () {

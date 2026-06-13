@@ -70,7 +70,7 @@ class _ArticlePageState extends State<ArticlePage> {
                                 Text(
                                   dataArticle.judul,
                                   style: TextStyle(
-                                    fontSize: 10,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   maxLines: 2,
@@ -93,6 +93,7 @@ class _ArticlePageState extends State<ArticlePage> {
                                       dataArticle.user,
                                       style: TextStyle(fontSize: 9),
                                     ),
+                                    SizedBox(width: 5,)
                                   ],
                                 ),
                               ],

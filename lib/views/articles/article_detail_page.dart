@@ -36,9 +36,18 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Detail Berita", style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blue,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.blue, Color(0xFF220033)],
+            ),
+          ),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
         actions: [
-          if (widget._dataArticle.id == id) ...[
+          if (widget._dataArticle.userId == id) ...[
             IconButton(
               onPressed: () {
                 context.push('/article-edit',extra: widget._dataArticle);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -20,6 +21,7 @@ class ArticleController extends Controller
                     "judul" => $article->judul,
                     "isi" => $article->isi,
                     "gambar" => $article->gambar,
+                    "user_id" => $article->user_id,
                     "user" => $article->user->full_name,
                     "created_at" => \Carbon\Carbon::parse($article->created_at)
                         ->locale('id')
@@ -151,6 +153,43 @@ class ArticleController extends Controller
                     ]
                 );
             }
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    "message" => "Error:" . $e->getMessage(),
+                    "status" => false
+                ]
+            );
+        }
+    }
+
+    public function showArticleUser($id)
+    {
+        try {
+            $articles = User::find($id)->articles;
+            $articlesResult = [];
+            foreach ($articles as $article) {
+
+                $articlesResult[] = [
+                    "id" => $article->id,
+                    "judul" => $article->judul,
+                    "isi" => $article->isi,
+                    "gambar" => $article->gambar,
+                    "user_id" => $article->user_id,
+                    "user" => $article->user->full_name,
+                    "created_at" => \Carbon\Carbon::parse($article->created_at)
+                        ->locale('id')
+                        ->translatedFormat('d F Y H:i'),
+                    "updated_at" => \Carbon\Carbon::parse($article->updated_at)->locale('id')->translatedFormat('d F Y H:i'), // $article->updated_at
+                ];
+            }
+            return response()->json(
+                [
+                    "message" => "Data artikel berhasil diambil",
+                    "status" => true,
+                    "dataArticles" => $articlesResult
+                ]
+            );
         } catch (\Exception $e) {
             return response()->json(
                 [

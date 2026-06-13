@@ -37,6 +37,7 @@ class DataArticle {
   String judul;
   String isi;
   String gambar;
+  int userId;
   String user;
   String createdAt;
   String updatedAt;
@@ -46,6 +47,7 @@ class DataArticle {
     required this.judul,
     required this.isi,
     required this.gambar,
+    required this.userId,
     required this.user,
     required this.createdAt,
     required this.updatedAt,
@@ -56,6 +58,7 @@ class DataArticle {
     judul: json["judul"],
     isi: json["isi"],
     gambar: json["gambar"],
+    userId: json["user_id"],
     user: json["user"],
     createdAt: json["created_at"],
     updatedAt: json["updated_at"],
@@ -66,6 +69,7 @@ class DataArticle {
     "judul": judul,
     "isi": isi,
     "gambar": gambar,
+    "user_id": userId,
     "user": user,
     "created_at": createdAt,
     "updated_at": updatedAt,

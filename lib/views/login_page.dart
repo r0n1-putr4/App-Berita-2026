@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.green, Color(0xFF220033)],
+            colors: [Colors.blue, Color(0xFF220033)],
           ),
         ),
         child: Center(
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                     TextFormField(
                       controller: username,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.wrap_text, color: Colors.red),
+                        prefixIcon: Icon(Icons.person, color: Colors.red),
                         labelText: "Username",
                         filled: true,
                         fillColor: Colors.amber.shade100,
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: password,
                       obscureText: true,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.wrap_text, color: Colors.red),
+                        prefixIcon: Icon(Icons.key, color: Colors.red),
                         labelText: "Password",
                         filled: true,
                         fillColor: Colors.amber.shade100,

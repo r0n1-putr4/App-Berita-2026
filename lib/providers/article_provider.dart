@@ -119,4 +119,24 @@ class ArticleProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> getDataArticleUser(int id) async{
+    try{
+      _isLoading = true;
+      notifyListeners();
+      http.Response response = await http
+          .get(Uri.parse("${ApiService.base_url}/articles/user/$id"))
+          .timeout(const Duration(seconds: 10));
+
+      _statusCode = response.statusCode;
+      final articleModel = articleModelFromJson(response.body);
+      _dataArticle = articleModel.dataArticles ?? [];
+      _message = articleModel.message;
+    }catch(e){
+      _message = "Error : $e";
+    }finally{
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
 }

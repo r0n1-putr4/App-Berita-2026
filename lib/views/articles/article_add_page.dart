@@ -66,6 +66,7 @@ class _ArticleAddPageState extends State<ArticleAddPage> {
   }
 
   int? id;
+
   void _loadSession() async {
     Map<String, dynamic> session = await SessionManager.getSession();
     setState(() {
@@ -85,6 +86,19 @@ class _ArticleAddPageState extends State<ArticleAddPage> {
     final provider = context.watch<ArticleProvider>();
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Article", style: TextStyle(color: Colors.white)),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.blue, Color(0xFF220033)],
+            ),
+          ),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(10),
