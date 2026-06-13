@@ -35,10 +35,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   String full_name = "";
+
   void _loadSession() async {
     Map<String, dynamic> session = await SessionManager.getSession();
     setState(() {
-      full_name = session['username'];
+      full_name = session['full_name'];
     });
   }
 
@@ -53,7 +54,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.blue, Color(0xFF220033)],
+            ),
+          ),
+        ),
+
         title: Text(full_name, style: TextStyle(color: Colors.white)),
         actions: [
           IconButton(
