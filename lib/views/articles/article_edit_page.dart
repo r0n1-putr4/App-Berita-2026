@@ -135,7 +135,9 @@ class _ArticleEditPageState extends State<ArticleEditPage> {
                 ),
                 SizedBox(height: 5),
                 _image != null
-                    ? Center(child: Image.file(_image!, height: 200))
+                    ? Center(child: Image.file(_image!,  width: double.infinity,
+                  height: 200,
+                  fit: BoxFit.cover,))
                     : Center(
                         child: Image(
                           image: NetworkImage(

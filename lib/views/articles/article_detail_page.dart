@@ -1,11 +1,13 @@
 import 'package:app_berita_roni/config/api_service.dart';
 import 'package:app_berita_roni/models/article_model.dart';
+import 'package:app_berita_roni/providers/article_provider.dart';
 import 'package:app_berita_roni/views/articles/article_edit_page.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../../config/session.dart';
-
 
 class ArticleDetailPage extends StatefulWidget {
   final DataArticle _dataArticle;
@@ -18,6 +20,7 @@ class ArticleDetailPage extends StatefulWidget {
 
 class _ArticleDetailPageState extends State<ArticleDetailPage> {
   int? id;
+
   void _loadSession() async {
     Map<String, dynamic> session = await SessionManager.getSession();
     setState(() {
@@ -31,8 +34,10 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
     super.initState();
     _loadSession();
   }
+
   @override
   Widget build(BuildContext context) {
+    final provider = context.watch<ArticleProvider>();
     return Scaffold(
       appBar: AppBar(
         title: Text("Detail Berita", style: TextStyle(color: Colors.white)),
@@ -50,15 +55,43 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
           if (widget._dataArticle.userId == id) ...[
             IconButton(
               onPressed: () {
-                context.push('/article-edit',extra: widget._dataArticle);
+                context.push('/article-edit', extra: widget._dataArticle);
               },
               icon: Icon(Icons.edit, color: Colors.white),
             ),
             IconButton(
-              onPressed: () {
+              onPressed: provider.isLoading
+                  ? null
+                  : () {
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.warning,
+                        animType: AnimType.scale,
+                        title: 'Hapus Berita',
+                        desc: 'Apakah Anda yakin ingin menghapus?',
+                        btnCancelText: 'Batal',
+                        btnOkText: 'Hapus',
+                        btnCancelColor: Colors.blue,
+                        btnCancelOnPress: () {},
+                        btnOkColor: Colors.red,
+                        btnOkOnPress: () async {
+                          String pesan = await context
+                              .read<ArticleProvider>()
+                              .deleteArticle(widget._dataArticle.id);
 
-              },
-              icon: Icon(Icons.delete, color: Colors.red),
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(
+                              context,
+                            ).showSnackBar(SnackBar(content: Text(pesan)));
+
+                            if (provider.status) {
+                              context.push('/');
+                            }
+                          }
+                        },
+                      ).show();
+                    },
+              icon: const Icon(Icons.delete, color: Colors.red),
             ),
           ],
         ],

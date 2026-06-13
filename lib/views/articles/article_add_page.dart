@@ -152,7 +152,7 @@ class _ArticleAddPageState extends State<ArticleAddPage> {
                 ),
                 SizedBox(height: 5),
                 _image != null
-                    ? Center(child: Image.file(_image!, height: 200))
+                    ? Center(child: Image.file(_image!, height: 200,width: double.infinity,fit: BoxFit.cover,))
                     : Text("No image selected"),
                 SizedBox(height: 15),
                 Text(

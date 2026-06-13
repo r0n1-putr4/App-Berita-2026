@@ -6,6 +6,7 @@ import 'package:app_berita_roni/models/article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/login_model.dart';
 import '../models/model_response.dart';
 
 class ArticleProvider extends ChangeNotifier {
@@ -120,6 +121,24 @@ class ArticleProvider extends ChangeNotifier {
     }
   }
 
+  Future<String> deleteArticle(int id) async{
+    try{
+      _isLoading = true;
+      notifyListeners();
+
+      http.Response hasil = await http.delete(
+        Uri.parse("${ApiService.base_url}/articles/$id"),
+      );
+      final loginModel = loginModelFromJson(hasil.body);
+      _status = loginModel.status;
+      _message = loginModel.message;
+      return _message;
+    }catch(e){
+      return _message = "Error : $e";
+    }finally{
+      _isLoading = false;
+    notifyListeners();}
+  }
   Future<void> getDataArticleUser(int id) async{
     try{
       _isLoading = true;
