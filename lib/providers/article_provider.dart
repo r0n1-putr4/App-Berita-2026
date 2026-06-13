@@ -60,7 +60,7 @@ class ArticleProvider extends ChangeNotifier {
       request.fields['isi'] = isi;
 
       request.files.add(
-        await http.MultipartFile.fromPath('gambar_berita', image.path),
+        await http.MultipartFile.fromPath('gambar', image.path),
       );
 
       http.StreamedResponse streamedResponse = await request.send();

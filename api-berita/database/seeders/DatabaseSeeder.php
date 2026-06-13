@@ -23,6 +23,13 @@ class DatabaseSeeder extends Seeder
             "full_name" => "Roni Putra",
         ]);
 
+        User::create([
+            "username" => "eko",
+            "email" => "eko@gmail.com",
+            "password" => md5("123456"),
+            "full_name" => "Eko Silalahi",
+        ]);
+
         Article::create(
             [
                 "user_id" => 1,
@@ -33,7 +40,7 @@ class DatabaseSeeder extends Seeder
 
         Article::create(
             [
-                "user_id" => 1,
+                "user_id" => 2,
                 "judul" => "Judul Artikel 2",
                 "isi" => "Isi artikel 2"
             ]

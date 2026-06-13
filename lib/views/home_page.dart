@@ -4,10 +4,8 @@ import 'package:app_berita_roni/views/users/user_page.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 import '../config/session.dart';
-import '../providers/session_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,14 +34,27 @@ class _HomePageState extends State<HomePage> {
     context.push('/login');
   }
 
-  late final session = context.watch<SessionProvider>();
+  String full_name = "";
+  void _loadSession() async {
+    Map<String, dynamic> session = await SessionManager.getSession();
+    setState(() {
+      full_name = session['username'];
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadSession();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
-        title: Text(session.full_name, style: TextStyle(color: Colors.white)),
+        title: Text(full_name, style: TextStyle(color: Colors.white)),
         actions: [
           IconButton(
             icon: Icon(Icons.logout, color: Colors.white),

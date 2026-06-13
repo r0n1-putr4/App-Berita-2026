@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:app_berita_roni/providers/article_provider.dart';
-import 'package:app_berita_roni/views/articles/article_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+
+import '../../config/session.dart';
 
 class ArticleAddPage extends StatefulWidget {
   const ArticleAddPage({super.key});
@@ -62,6 +63,21 @@ class _ArticleAddPageState extends State<ArticleAddPage> {
         );
       },
     );
+  }
+
+  int? id;
+  void _loadSession() async {
+    Map<String, dynamic> session = await SessionManager.getSession();
+    setState(() {
+      id = session['id'];
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadSession();
   }
 
   @override
@@ -165,7 +181,7 @@ class _ArticleAddPageState extends State<ArticleAddPage> {
                             String pesan = await context
                                 .read<ArticleProvider>()
                                 .addArticle(
-                                  1,
+                                  id!,
                                   judul.text,
                                   isiBerita.text,
                                   _image!,

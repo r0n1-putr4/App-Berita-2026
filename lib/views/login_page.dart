@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../config/session.dart';
-import '../providers/session_provider.dart';
 import '../providers/user_provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -113,7 +112,6 @@ class _LoginPageState extends State<LoginPage> {
                               provider.user!.email,
                               provider.user!.gambar,
                             );
-                            context.read<SessionProvider>().loadSession();
                             context.go('/');
                           }
                         }

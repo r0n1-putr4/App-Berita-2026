@@ -4,6 +4,8 @@ import 'package:app_berita_roni/views/articles/article_edit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../config/session.dart';
+
 
 class ArticleDetailPage extends StatefulWidget {
   final DataArticle _dataArticle;
@@ -15,6 +17,20 @@ class ArticleDetailPage extends StatefulWidget {
 }
 
 class _ArticleDetailPageState extends State<ArticleDetailPage> {
+  int? id;
+  void _loadSession() async {
+    Map<String, dynamic> session = await SessionManager.getSession();
+    setState(() {
+      id = session['id'];
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadSession();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +38,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
         title: Text("Detail Berita", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue,
         actions: [
-          if (widget._dataArticle.id == 2) ...[
+          if (widget._dataArticle.id == id) ...[
             IconButton(
               onPressed: () {
                 context.push('/article-edit',extra: widget._dataArticle);
