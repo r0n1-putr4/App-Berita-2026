@@ -57,6 +57,7 @@ class UserController extends Controller
                         'email' => $user->email,
                         'full_name' => $user->full_name,
                         'gambar' => $user->gambar,
+                        'is_admin' => $user->is_admin,
                     ]
                 ]);
             } else {
