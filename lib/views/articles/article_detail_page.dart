@@ -20,11 +20,13 @@ class ArticleDetailPage extends StatefulWidget {
 
 class _ArticleDetailPageState extends State<ArticleDetailPage> {
   int? id;
+  bool? is_admin;
 
   void _loadSession() async {
     Map<String, dynamic> session = await SessionManager.getSession();
     setState(() {
       id = session['id'];
+      is_admin = session['is_admin'];
     });
   }
 
@@ -52,7 +54,7 @@ class _ArticleDetailPageState extends State<ArticleDetailPage> {
         ),
         iconTheme: IconThemeData(color: Colors.white),
         actions: [
-          if (widget._dataArticle.userId == id) ...[
+          if (widget._dataArticle.userId == id || is_admin!) ...[
             IconButton(
               onPressed: () {
                 context.push('/article-edit', extra: widget._dataArticle);

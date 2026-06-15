@@ -52,6 +52,9 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.person, color: Colors.red),
                         labelText: "Username",
+                        labelStyle: const TextStyle(
+                          color: Colors.red,
+                        ),
                         filled: true,
                         fillColor: Colors.amber.shade100,
                         border: OutlineInputBorder(
@@ -71,6 +74,9 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.key, color: Colors.red),
                         labelText: "Password",
+                        labelStyle: const TextStyle(
+                          color: Colors.red,
+                        ),
                         filled: true,
                         fillColor: Colors.amber.shade100,
                         border: OutlineInputBorder(
@@ -111,18 +117,19 @@ class _LoginPageState extends State<LoginPage> {
                               provider.user!.full_name,
                               provider.user!.email,
                               provider.user!.gambar,
+                              provider.user!.is_admin
                             );
                             context.go('/');
                           }
                         }
                       },
-                      child: provider.isLoading ? CircularProgressIndicator() : Text("Login"),
+                      child: provider.isLoading ? CircularProgressIndicator() : Text("Login",style: TextStyle(fontSize: 18),),
                     ),
                     TextButton(
                       onPressed: () {
                         context.push('/register');
                       },
-                      child: const Text('Belum punya akun? Register',style: TextStyle(color: Colors.white),),
+                      child: const Text('Belum punya akun? Register',style: TextStyle(color: Colors.white,fontSize: 18),),
                     ),
                   ],
                 ),

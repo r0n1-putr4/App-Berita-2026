@@ -1,5 +1,6 @@
 import 'package:app_berita_roni/routers/article_route.dart';
 import 'package:app_berita_roni/routers/auth_route.dart';
+import 'package:app_berita_roni/routers/user_route.dart';
 import 'package:app_berita_roni/views/home_page.dart';
 import 'package:go_router/go_router.dart';
 
@@ -29,5 +30,6 @@ final GoRouter appRouter = GoRouter(
 
     ...ArticleRoute.routes,
     ...AuthRoutes.routes,
+    ...UserRoute.routes,
   ],
 );

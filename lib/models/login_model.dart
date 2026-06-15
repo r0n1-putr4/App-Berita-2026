@@ -38,6 +38,7 @@ class DataLogin {
   String email;
   String full_name;
   String gambar;
+  bool is_admin;
 
   DataLogin({
     required this.id,
@@ -45,6 +46,7 @@ class DataLogin {
     required this.email,
     required this.full_name,
     required this.gambar,
+    required this.is_admin
   });
 
   factory DataLogin.fromJson(Map<String, dynamic> json) => DataLogin(
@@ -53,6 +55,7 @@ class DataLogin {
     email: json["email"],
     full_name: json["full_name"],
     gambar: json["gambar"],
+    is_admin: json['is_admin'],
   );
 
   Map<String, dynamic> toJson() => {
@@ -61,5 +64,6 @@ class DataLogin {
     "email": email,
     "full_name": full_name,
     "gambar": gambar,
+    "is_admin": is_admin
   };
 }

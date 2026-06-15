@@ -67,7 +67,9 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: Icon(Icons.person, color: Colors.white),
-            onPressed: () {},
+            onPressed: () {
+              context.push('/profile');
+            },
           ),
           IconButton(
             icon: Icon(Icons.logout, color: Colors.white),
