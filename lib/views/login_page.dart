@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                               provider.user!.gambar,
                               provider.user!.is_admin
                             );
-                            context.go('/');
+                            context.pushReplacement('/');
                           }
                         }
                       },

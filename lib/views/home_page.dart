@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
   void _loadSession() async {
     Map<String, dynamic> session = await SessionManager.getSession();
     setState(() {
-      full_name = session['full_name'];
+      full_name =  session['full_name'];
     });
   }
 
@@ -54,6 +54,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
